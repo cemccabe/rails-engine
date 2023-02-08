@@ -91,10 +91,13 @@ describe 'Items API' do
     prev_name = Item.last.name
     item_params = { name: 'Test Name' }
     headers = {"CONTENT_TYPE" => "application/json"}
-
     patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate(item: item_params)
 
     expect(response).to be_successful
+    
+    item = Item.find_by(id: id)
 
+    expect(item.name).to_not eq(prev_name)
+    expect(item.name).to eq(item_params[:name])
   end
 end

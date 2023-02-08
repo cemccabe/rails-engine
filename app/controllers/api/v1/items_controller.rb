@@ -16,7 +16,8 @@ module Api
       end
 
       def update
-        
+        item = Item.update(params[:id], item_params)
+        render json: ItemSerializer.new(item)
       end
 
       private
