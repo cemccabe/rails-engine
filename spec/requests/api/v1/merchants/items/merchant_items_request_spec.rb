@@ -8,5 +8,8 @@ describe 'Merchant Items API' do
     get "/api/v1/merchants/#{merchant.id}/items"
 
     expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)[:data]
+
   end
 end
