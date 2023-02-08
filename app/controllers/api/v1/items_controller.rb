@@ -10,7 +10,15 @@ module Api
       end
 
       def create
-        
+        item = Item.new(item_params)
+        item.save
+        render json: ItemSerializer.new(item), status: :created
+      end
+
+      private
+
+      def item_params
+        params.require(:item).permit(:name, :description, :unit_price, :merchant_id)
       end
     end
   end
