@@ -41,5 +41,7 @@ describe 'Items API' do
     get "/api/v1/items/#{id}"
 
     expect(response).to be_successful
+
+    item = JSON.parse(response.body, symbolize_names: true)
   end
 end
