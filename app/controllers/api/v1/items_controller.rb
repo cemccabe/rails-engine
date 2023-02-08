@@ -4,6 +4,10 @@ module Api
       def index
         render json: ItemSerializer.new(Item.all)
       end
+
+      def show
+        
+      end
     end
   end
 end
