@@ -62,4 +62,18 @@ describe 'Items API' do
     expect(item[:attributes]).to have_key(:merchant_id)
     expect(item[:attributes][:merchant_id]).to be_an(Integer)
   end
+
+  it 'can create a new item' do
+    item_params = { name: 'Test Name',
+                    description: 'Test description.',
+                    unit_price: 12.34,
+                    merchant_id: 9999
+    }
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    post '/api/v1/items', headers: headers, params: JSON.generate(item: item_params)
+
+    expect(response).to be_successful
+  end
 end
