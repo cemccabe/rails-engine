@@ -33,4 +33,13 @@ describe 'Items API' do
       expect(item[:attributes][:merchant_id]).to eq(merchant.id)
     end
   end
+
+  it 'sends a list of one item' do
+    merchant = create(:merchant)
+    id = create(:item, merchant_id: merchant.id).id
+
+    get "/api/v1/items/#{id}"
+
+    expect(response).to be_successful
+  end
 end
