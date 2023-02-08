@@ -15,6 +15,10 @@ module Api
         render json: ItemSerializer.new(item), status: :created
       end
 
+      def update
+        
+      end
+
       private
 
       def item_params
