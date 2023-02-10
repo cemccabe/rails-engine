@@ -10,14 +10,19 @@ describe 'Merchant Find API' do
 
   describe 'return a single object, if found' do
     it 'searches for a single object' do
-      get '/api/v1/merchants/find?name=Sampson'
+      get "/api/v1/merchants/find?name=#{@merchant4.name}"
 
       expect(response).to be_successful
 
       merchant = JSON.parse(response.body, symbolize_names: true)[:data]
 
+      expect(merchant).to have_key(:id)
       expect(merchant[:id]).to eq("#{@merchant4.id}")
+
+      expect(merchant).to have_key(:type)
       expect(merchant[:type]).to eq('merchant')
+
+      expect(merchant[:attributes]).to have_key(:name)
       expect(merchant[:attributes][:name]).to eq("#{@merchant4.name}")
     end
   end
