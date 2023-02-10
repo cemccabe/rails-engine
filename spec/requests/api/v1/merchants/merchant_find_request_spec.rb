@@ -25,5 +25,26 @@ describe 'Merchant Find API' do
       expect(merchant[:attributes]).to have_key(:name)
       expect(merchant[:attributes][:name]).to eq("#{@merchant4.name}")
     end
+
+    it 'returns a single merchant given a partial search match' do
+      get "/api/v1/merchants/find?name=chr"
+
+      expect(response).to be_successful
+
+      merchant = JSON.parse(response.body, symbolize_names: true)[:data]
+
+      expect(merchant).to have_key(:id)
+      expect(merchant[:id]).to eq("#{@merchant2.id}")
+
+      expect(merchant).to have_key(:type)
+      expect(merchant[:type]).to eq('merchant')
+
+      expect(merchant[:attributes]).to have_key(:name)
+      expect(merchant[:attributes][:name]).to eq("#{@merchant2.name}")
+    end
+
+    # it 'returns an error if no parameters are given' do
+    #   get '/api/v1/merchants/find'
+    # end
   end
 end
