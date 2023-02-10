@@ -11,7 +11,7 @@ RSpec.describe Merchant, type: :model do
         create_list(:merchant, 5)
         merchant = Merchant.first
 
-        expect(Merchant.search(merchant.name)).to eq([merchant])
+        expect(Merchant.search(merchant.name)).to eq(merchant)
       end
 
       it 'finds a merchant by its partial name - alpha order, capitialization doesnt matter' do
@@ -19,7 +19,8 @@ RSpec.describe Merchant, type: :model do
         merchant2 = create(:merchant, name: 'chris')
         merchant3 = create(:merchant, name: 'Sampson')
 
-        expect(Merchant.search('Chr')).to eq([merchant2])
+        expect(Merchant.search('Sa')).to eq(merchant3)
+        expect(Merchant.search('Chr')).to eq(merchant2)
       end
     end
   end
