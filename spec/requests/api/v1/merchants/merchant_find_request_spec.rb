@@ -14,7 +14,7 @@ describe 'Merchant Find API' do
 
       expect(response).to be_successful
 
-      merchant = JSON.parse(resources.body, symbolize_names: true)[:data]
+      merchant = JSON.parse(response.body, symbolize_names: true)[:data]
 
       expect(merchant[:id]).to eq("#{@merchant4.id}")
       expect(merchant[:type]).to eq('merchant')
