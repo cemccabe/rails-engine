@@ -3,7 +3,8 @@ module Api
     module Merchants
       class FindController < ApplicationController
         def index
-
+          merchant = Merchant.search(params[:name])
+          render json: MerchantSerializer.new(merchant)
         end
       end
     end
