@@ -14,9 +14,9 @@ RSpec.describe Merchant, type: :model do
         expect(Merchant.search(merchant.name)).to eq([merchant])
       end
 
-      it 'finds a merchant by its partial name' do
+      it 'finds a merchant by its partial name - alpha order, capitialization doesnt matter' do
         merchant1 = create(:merchant, name: 'XChristian')
-        merchant2 = create(:merchant, name: 'Chris')
+        merchant2 = create(:merchant, name: 'chris')
         merchant3 = create(:merchant, name: 'Sampson')
 
         expect(Merchant.search('Chr')).to eq([merchant2])
