@@ -84,4 +84,32 @@ describe 'Items API' do
     expect(created_item.unit_price).to eq(item_params[:unit_price])
     expect(created_item.merchant_id).to eq(item_params[:merchant_id])
   end
+
+  it 'can update an existing item' do
+    merchant = create(:merchant)
+    id = create(:item, merchant_id: merchant.id).id
+    prev_name = Item.last.name
+    item_params = { name: 'Test Name' }
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate(item: item_params)
+
+    expect(response).to be_successful
+    
+    item = Item.find_by(id: id)
+
+    expect(item.name).to_not eq(prev_name)
+    expect(item.name).to eq(item_params[:name])
+  end
+
+  it 'cant update with invalid merchant id' do
+    merchant = create(:merchant)
+    id = create(:item, merchant_id: merchant.id).id
+    item_params = { name: 'Test Name', merchant_id: 99999999 }
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate(item: item_params)
+
+    expect(response.status).to eq(404)
+  end
 end

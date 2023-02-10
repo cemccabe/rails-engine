@@ -15,6 +15,15 @@ module Api
         render json: ItemSerializer.new(item), status: :created
       end
 
+      def update
+        item = Item.update(params[:id], item_params)
+        if item.save
+          render json: ItemSerializer.new(item)
+        else
+          render json: "Error", status: :not_found
+        end
+      end
+
       private
 
       def item_params
